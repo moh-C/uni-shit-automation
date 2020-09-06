@@ -29,13 +29,15 @@ class Golestan:
             EC.frame_to_be_available_and_switch_to_it((By.NAME, 'Master')))
         self.waiter.until(
             EC.frame_to_be_available_and_switch_to_it((By.NAME, 'Form_Body')))
-        counter = 0
-        sleep(5)
         # Scripts go here
         return self
 
     def setTime(self, time):
         self.time = time
+        return self
+    
+    def garbageCollection(self):
+        self.driver.delete_all_cookies()
         return self
 
     def login(self):
@@ -52,6 +54,12 @@ class Golestan:
                     EC.frame_to_be_available_and_switch_to_it((By.NAME, 'Form_Body')))
                 self.waiter.until(EC.element_to_be_clickable(
                     (By.ID, 'F80351'))).send_keys(self.username)
+                
+                self.waiter.until(EC.element_to_be_clickable(
+                    (By.XPATH, '//*[@id="dsetting"]/span'))).click()
+                self.waiter.until(EC.element_to_be_clickable(
+                    (By.XPATH, '//*[@id="DisbOthrs"]'))).click()
+
                 sleep(10)
                 self.driver.find_element_by_id(
                     'F80401').send_keys(self.password + Keys.ENTER)
@@ -97,6 +105,10 @@ class Golestan:
                 time = False
             except TimeoutException:
                 time = True
+        return self
+    
+    def exitFormSabtename(self):
+        self.waiter.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[9]/a/span'))).click()
         return self
 
     def toSeconds(self, t):
