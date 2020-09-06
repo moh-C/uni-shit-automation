@@ -31,27 +31,7 @@ class Golestan:
             EC.frame_to_be_available_and_switch_to_it((By.NAME, 'Form_Body')))
         counter = 0
         sleep(5)
-        for i in self.units:
-            script0 = 'window.frames[2].frames["Master"].frames["Form_Body"]'
-            script1 = script0 + '.' + \
-                'document.querySelectorAll("tr.inserted #F0780")[' + str(
-                    counter)+'].value= "{}" '.format(str(i[:2]))
-            script2 = script0 + '.' + \
-                'document.querySelectorAll("tr.inserted #F0785")[' + str(
-                    counter)+'].value= "{}"'.format(str(i[2:4]))
-            script3 = script0 + '.' + \
-                'document.querySelectorAll("tr.inserted #F0790")[' + str(
-                    counter)+'].value="{}"'.format(str(i[4:7]))
-            script4 = script0 + '.' + \
-                'document.querySelectorAll("tr.inserted #F0795")[' + str(
-                    counter)+'].value="{}" '.format(str(i[7:9]))
-
-            self.driver.execute_script(script0 + '.AddRowT01()')
-            self.driver.execute_script(script1)
-            self.driver.execute_script(script2)
-            self.driver.execute_script(script3)
-            self.driver.execute_script(script4)
-            counter += 1
+        # Scripts go here
         return self
 
     def setTime(self, time):
@@ -72,6 +52,7 @@ class Golestan:
                     EC.frame_to_be_available_and_switch_to_it((By.NAME, 'Form_Body')))
                 self.waiter.until(EC.element_to_be_clickable(
                     (By.ID, 'F80351'))).send_keys(self.username)
+                sleep(10)
                 self.driver.find_element_by_id(
                     'F80401').send_keys(self.password + Keys.ENTER)
                 inLogin = False
@@ -97,10 +78,7 @@ class Golestan:
         return self
 
     def goToMainEntekhaabVahed(self):
-        x = self.toSeconds(self.time) - \
-            self.toSeconds(self.getSiteTime())
-        print(x)
-        sleep(x)
+        sleep(5)
         time = True
         while(time):
             try:
@@ -113,18 +91,13 @@ class Golestan:
                     EC.frame_to_be_available_and_switch_to_it((By.NAME, 'Form_Body')))
                 self.waiter.until(EC.element_to_be_clickable(
                     (By.CSS_SELECTOR, 'div #accordion2 label:nth-child(3)'))).click()
+                sleep(1)
                 self.waiter.until(EC.element_to_be_clickable(
                     (By.ID, 'L1'))).click()
                 time = False
             except TimeoutException:
                 time = True
         return self
-
-    def getSiteTime(self):
-        self.driver.switch_to.default_content()
-        time = self.waiter.until(EC.visibility_of_element_located(
-            (By.CSS_SELECTOR, '#\_mt_bou > div:nth-child(5)'))).text
-        return time.split(' ')[0]
 
     def toSeconds(self, t):
         h = int(t.split(':')[0])
