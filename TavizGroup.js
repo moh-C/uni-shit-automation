@@ -1,6 +1,6 @@
-var firstTime = true;
+var counter = 0;
 
-function selectVahed() {
+function taviz() {
   var len = window.frames[2].frames["Master"].frames[
     "Form_Body"
   ].document.getElementsByClassName("TableDataRow").length;
@@ -14,9 +14,7 @@ function selectVahed() {
       if (obj.cells[3].innerHTML == "01")
         if (obj.cells[2].innerHTML == "016") obj.click();
   }
-}
 
-function chooseVahed() {
   var len2 = window.frames[2].frames["Master"].frames[
     "Form_Body"
   ].document.getElementsByClassName("Inserted").length;
@@ -36,11 +34,25 @@ function chooseVahed() {
     .click();
 }
 
+function closeDialog() {
+  document
+    .querySelectorAll(
+      "body > div.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix.ui-draggable > a"
+    )[0]
+    .click();
+}
+
+function openDialog() {
+  window.frames[1].frames["Master"].frames["Form_Body"].document
+    .querySelector("#L1")
+    .click();
+}
+
 var myInterval = setInterval(() => {
-  if (firstTime) {
-    selectVahed();
-    firstTime = !firstTime;
-  } else chooseVahed();
+  if (counter % 3 == 0) openDialog();
+  else if (counter % 3 == 1) taviz();
+  else closeDialog();
+  counter++;
 }, 5000);
 
 //clearInterval(myInterval);

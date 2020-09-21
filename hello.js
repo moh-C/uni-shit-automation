@@ -32,25 +32,27 @@ window.frames[2].frames["Commander"].document
 
 /* ---------------------------------------------------------------------- */
 
+var vahed_change = "420107823";
+
 window.frames[2].frames["Master"].frames["Form_Body"].document
   .querySelector("#ChngButt")
   .click();
 
 window.frames[2].frames["Master"].frames["Form_Body"].document.querySelector(
   "#F01852"
-).value = "42";
+).value = vahed_change.slice(0, 2);
 
 window.frames[2].frames["Master"].frames["Form_Body"].document.querySelector(
   "#F01902"
-).value = "01";
+).value = vahed_change.slice(2, 4);
 
 window.frames[2].frames["Master"].frames["Form_Body"].document.querySelector(
   "#F01952"
-).value = "078";
+).value = vahed_change.slice(4, 7);
 
 window.frames[2].frames["Master"].frames["Form_Body"].document.querySelector(
   "#F51707"
-).value = "20";
+).value = vahed_change.slice(7, 9);
 
 window.frames[2].frames["Master"].frames["Form_Body"].document
   .querySelector("#DoCh")
